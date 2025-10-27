@@ -180,7 +180,7 @@ ENV PATH="/root/.cargo/bin:${PATH}"
 
 RUN <<EOF
     mkdir /opt/linux
-    wget -O - https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-5.4.tar.gz | tar xzC /opt/linux
+    wget -O - https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-5.4.tar.gz | tar xzoC /opt/linux
     cd /opt/linux/linux-5.4
     make defconfig
 EOF
@@ -276,13 +276,13 @@ RUN <<EOF
 EOF
 
 RUN <<EOF
-    wget -q -O - https://github.com/mozilla/geckodriver/releases/download/v0.35.0/geckodriver-v0.35.0-linux64.tar.gz | tar xvz -C /usr/local/bin
+    wget -q -O - https://github.com/mozilla/geckodriver/releases/download/v0.35.0/geckodriver-v0.35.0-linux64.tar.gz | tar xzoC /usr/local/bin
 EOF
 
 RUN <<EOF
     VERSION="busybox-1.33.2"
     mkdir /opt/busybox && cd "$_"
-    wget -q -O - "https://busybox.net/downloads/${VERSION}.tar.bz2" | tar xvj
+    wget -q -O - "https://busybox.net/downloads/${VERSION}.tar.bz2" | tar xjo
     pushd "${VERSION}"
     make defconfig
     sed -e 's/.*CONFIG_STATIC .*/CONFIG_STATIC=y/' -i .config
