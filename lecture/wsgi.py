@@ -3,6 +3,7 @@
 import gzip
 import json
 import os
+import subprocess
 import time
 from pathlib import Path
 
@@ -82,6 +83,7 @@ def update_telemetry(youtube_id):
     completed = sum(end - start for start, end in valid_coverage) > TOTAL_TIME - 5
     if completed:
         result["flag"] = flag
+        subprocess.run(["dojo submit",flag], capture_output=True, text=True)
 
     return result
 
